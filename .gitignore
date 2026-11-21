@@ -1,0 +1,21 @@
+.env
+.env.local
+api_service
+*.exe
+bin/
+dist/
+node_modules/
+internal/webembed/data/index/**
+internal/webembed/data/console/**
+internal/webembed/data/admin/**
+!internal/webembed/data/index/.gitkeep
+!internal/webembed/data/console/.gitkeep
+!internal/webembed/data/admin/.gitkeep
+!internal/webembed/data/index/README.md
+.DS_Store
+
+# local ops artifacts
+*.sql.gz
+backups/
+*.pem
+*.key

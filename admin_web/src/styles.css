@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+html,
+body,
+#app {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-sider .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.admin-sider .ant-menu-light {
+  border-inline-end: none !important;
+}
+
+.admin-sider .ant-layout-sider-trigger {
+  border-top: 1px solid #f0f0f0;
+}
+
+.settings-split .ant-layout-sider {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+}
+
+/* 系统设置右侧配置区：去掉 Card 默认阴影/描边，表单直接铺在面板里 */
+.settings-split .ant-card,
+.settings-panel .ant-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.settings-split .ant-card .ant-card-head,
+.settings-panel .ant-card .ant-card-head {
+  border: none !important;
+  min-height: 0;
+  padding: 0 0 8px;
+}
+.settings-split .ant-card .ant-card-body,
+.settings-panel .ant-card .ant-card-body {
+  padding: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .settings-split {
+    flex-direction: column !important;
+  }
+  .settings-split > .ant-layout-sider {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative;
+    max-height: none;
+  }
+}
+
+/* 表格列宽更紧凑，避免长 ID 把布局撑开 */
+.ant-table-wrapper .ant-table-cell {
+  vertical-align: middle;
+}
+.ant-table-wrapper .ant-typography {
+  margin-bottom: 0;
+}

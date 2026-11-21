@@ -1,0 +1,22 @@
+name: api_service ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.x"
+      - name: Go test
+        run: go test ./...
+      - name: Go build
+        run: go build -o /tmp/api_service ./cmd/server/

@@ -1,0 +1,55 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: ${VERSION:-dev}
+        COMMIT: ${COMMIT:-none}
+        BUILDTIME: ${BUILDTIME:-unknown}
+    image: nairo-api:${VERSION:-dev}
+    container_name: nairo-api
+    restart: unless-stopped
+    ports:
+      - "${API_PUBLISH_PORT:-8088}:8088"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      TZ: Asia/Shanghai
+      APP_TIMEZONE: Asia/Shanghai
+      SERVER_ADDRESS: ":8088"
+      # 本地默认 local；真正上线再设 SERVER_MODE=prod 并配强密钥
+      SERVER_MODE: ${SERVER_MODE:-local}
+      # 镜像已 embed 前端；勿跟 .env 的 WEB_DEV=true（本地 go run 用），否则读不到磁盘目录会 404
+      WEB_DEV: "false"
+      WEB_ADMIN_BASE_PATH: ${WEB_ADMIN_BASE_PATH:-/admin_nairo}
+      # 不读 .env 的 127.0.0.1，直接连宿主机 MySQL
+      MYSQL_HOST: host.docker.internal
+      MYSQL_PORT: ${MYSQL_PORT:-3306}
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
+      MYSQL_DBNAME: ${MYSQL_DBNAME:-nairo_app}
+      LOGGING_LEVEL: ${LOGGING_LEVEL:-info}
+      SNOWFLAKE_NODE_ID: ${SNOWFLAKE_NODE_ID:-1}
+      PAY_PUBLIC_BASE_URL: ${PAY_PUBLIC_BASE_URL:-http://127.0.0.1:8088}
+      PAY_LOCK_TTL_SECONDS: ${PAY_LOCK_TTL_SECONDS:-300}
+      SECURITY_MASTER_KEY: ${SECURITY_MASTER_KEY:-}
+      SERVER_ALLOWED_ORIGINS: ${SERVER_ALLOWED_ORIGINS:-}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-nairo-dev-secret-change-me}
+      ADMIN_BOOTSTRAP_USERNAME: ${ADMIN_BOOTSTRAP_USERNAME:-admin}
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-admin123}
+      CONSOLE_JWT_SECRET: ${CONSOLE_JWT_SECRET:-nairo-console-dev-secret-change-me}
+      CONSOLE_BOOTSTRAP_DEMO: ${CONSOLE_BOOTSTRAP_DEMO:-true}
+      CONSOLE_ACCESS_TTL_SECONDS: ${CONSOLE_ACCESS_TTL_SECONDS:-900}
+      CONSOLE_REFRESH_TTL_SECONDS: ${CONSOLE_REFRESH_TTL_SECONDS:-604800}
+      CONSOLE_DEFAULT_FEE_RATE_BPS: ${CONSOLE_DEFAULT_FEE_RATE_BPS:-100}
+      CONSOLE_CODE_TTL_SECONDS: ${CONSOLE_CODE_TTL_SECONDS:-600}
+      CONSOLE_REGISTER_ENABLED: ${CONSOLE_REGISTER_ENABLED:-true}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-noreply@nairo.local}
+      SMTP_DEV_PRINT: ${SMTP_DEV_PRINT:-true}
+      GEETEST_CAPTCHA_ID: ${GEETEST_CAPTCHA_ID:-}
+      GEETEST_CAPTCHA_KEY: ${GEETEST_CAPTCHA_KEY:-}
