@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-> 公开源码仓。日常开发与含完整历史的私有仓分离；请勿把 `.env`、密钥、生产域名提交进 Git。
+> 请勿把 `.env`、密钥、生产域名提交进 Git。
 
 个人收款「免签」后端：用 Android 监控端读取微信 / 支付宝收款通知，签名上报后完成下单匹配、收银台与商户回调。
 
@@ -162,14 +162,6 @@ CI：`.github/workflows/ci.yml`（`go test` + `go build`）。
 | 仓库 | 说明 |
 |------|------|
 | [nairo-android](https://github.com/iiileo/nairo-android) | Android 源码与 APK Releases |
-
-## 同步到公开仓
-
-私有仓开发完成后，可用无历史方式覆盖同步到 `public` remote（`iiileo/nairo-api`）：
-
-```bash
-./scripts/push-public.sh
-```
 
 ## License
 
